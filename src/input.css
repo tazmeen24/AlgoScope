@@ -121,7 +121,9 @@
     font-optical-sizing: auto;
     background: var(--theme-bg);
     color: var(--theme-text);
-    transition: background-color 240ms ease, color 240ms ease;
+    transition:
+      background-color 240ms ease,
+      color 240ms ease;
   }
 
   .logo-font {
@@ -284,6 +286,5 @@
   --tw-gradient-from: #0f172a var(--tw-gradient-from-position) !important;
   --tw-gradient-to: rgba(15, 23, 42, 0) var(--tw-gradient-to-position) !important;
   --tw-gradient-stops:
-    var(--tw-gradient-from), var(--tw-gradient-via-stops),
-    var(--tw-gradient-to) !important;
+    var(--tw-gradient-from), var(--tw-gradient-via-stops), var(--tw-gradient-to) !important;
 }
