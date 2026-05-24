@@ -121,11 +121,18 @@ export const CanvasShortestPath = ({
     edgesRef.current = edges
     networkRef.current = network
 
-    setNetworkReady(true)
-    notifyGraphChange()
+    const handleNetworkReady = () => {
+      setNetworkReady(true)
+      notifyGraphChange()
+    }
+    network.once('stabilizationIterationsDone', handleNetworkReady)
 
     return () => {
+      network.off('stabilizationIterationsDone', handleNetworkReady)
       network.destroy()
+      networkRef.current = null
+      nodesRef.current = null
+      edgesRef.current = null
       setNetworkReady(false)
     }
   }, [notifyGraphChange])

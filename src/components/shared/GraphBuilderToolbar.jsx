@@ -30,8 +30,8 @@ export const GraphBuilderToolbar = ({
   const [weightInput, setWeightInput] = useState('1')
   const [weightError, setWeightError] = useState('')
 
-  // Track pending first-click node in addEdge mode
-  const pendingEdgeSource = useRef(null)
+  // Track pending first-click node in addEdge mode (state for UI hints)
+  const [pendingEdgeSourceId, setPendingEdgeSourceId] = useState(null)
   // Stable counter for new node IDs to avoid collisions
   const nextNodeId = useRef(null)
   // Stable counter for new edge IDs
@@ -41,14 +41,23 @@ export const GraphBuilderToolbar = ({
   const builderModeRef = useRef(builderMode)
   useEffect(() => {
     builderModeRef.current = builderMode
-    // Reset pending edge source when switching mode
-    pendingEdgeSource.current = null
-    // Reset selection highlight
-    if (networkRef.current) {
-      networkRef.current.unselectAll()
-    }
-    setSelectedElement(null)
-  }, [builderMode, networkRef])
+  }, [builderMode])
+
+  const selectBuilderMode = useCallback(
+    (id) => {
+      if (pendingEdgeSourceId !== null && nodesRef.current) {
+        nodesRef.current.update({
+          id: pendingEdgeSourceId,
+          color: { background: '#06b6d4', border: '#e2e8f0' },
+        })
+      }
+      setPendingEdgeSourceId(null)
+      setSelectedElement(null)
+      networkRef.current?.unselectAll()
+      setBuilderMode(id)
+    },
+    [pendingEdgeSourceId, nodesRef, networkRef]
+  )
 
   // Initialise ID counters once nodes/edges are loaded
   useEffect(() => {
@@ -83,7 +92,7 @@ export const GraphBuilderToolbar = ({
           y: params.event.center.y,
         })
         const id = nextNodeId.current++
-        nodes.add({ id, label: String(id) })
+        nodes.add({ id, label: String(id), x: pos.x, y: pos.y })
         notifyGraphChange()
         return
       }
@@ -92,9 +101,9 @@ export const GraphBuilderToolbar = ({
         const clickedNode = params.nodes[0]
         if (!clickedNode) return
 
-        if (pendingEdgeSource.current === null) {
+        if (pendingEdgeSourceId === null) {
           // First click – highlight as source
-          pendingEdgeSource.current = clickedNode
+          setPendingEdgeSourceId(clickedNode)
           nodes.update({
             id: clickedNode,
             color: {
@@ -103,7 +112,7 @@ export const GraphBuilderToolbar = ({
             },
           })
         } else {
-          const from = pendingEdgeSource.current
+          const from = pendingEdgeSourceId
           const to = clickedNode
 
           // Reset source highlight
@@ -111,7 +120,7 @@ export const GraphBuilderToolbar = ({
             id: from,
             color: { background: '#06b6d4', border: '#e2e8f0' },
           })
-          pendingEdgeSource.current = null
+          setPendingEdgeSourceId(null)
 
           if (from === to) return // no self-loops
 
@@ -128,7 +137,14 @@ export const GraphBuilderToolbar = ({
         }
       }
     },
-    [networkRef, nodesRef, edgesRef, weighted, notifyGraphChange]
+    [
+      networkRef,
+      nodesRef,
+      edgesRef,
+      weighted,
+      notifyGraphChange,
+      pendingEdgeSourceId,
+    ]
   )
 
   const handleSelectNode = useCallback((params) => {
@@ -200,7 +216,7 @@ export const GraphBuilderToolbar = ({
     nodesRef.current.clear()
     nextNodeId.current = 1
     nextEdgeId.current = 1
-    pendingEdgeSource.current = null
+    setPendingEdgeSourceId(null)
     setSelectedElement(null)
     notifyGraphChange()
   }, [nodesRef, edgesRef, notifyGraphChange])
@@ -217,7 +233,7 @@ export const GraphBuilderToolbar = ({
       .filter((id) => id !== undefined)
     nextNodeId.current = nodeIds.length > 0 ? Math.max(...nodeIds) + 1 : 1
     nextEdgeId.current = edgeIds.length > 0 ? Math.max(...edgeIds) + 1 : 1
-    pendingEdgeSource.current = null
+    setPendingEdgeSourceId(null)
     setSelectedElement(null)
     notifyGraphChange()
     if (networkRef.current) {
@@ -334,8 +350,6 @@ export const GraphBuilderToolbar = ({
     addEdge: 'purple',
   }
 
-  const activeColor = modeColors[builderMode]
-
   const colorMap = {
     cyan: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/40 shadow-[0_0_8px_rgba(6,182,212,0.25)]',
     emerald:
@@ -355,7 +369,7 @@ export const GraphBuilderToolbar = ({
               key={id}
               id={`graph-builder-mode-${id}`}
               title={tooltip}
-              onClick={() => setBuilderMode(id)}
+              onClick={() => selectBuilderMode(id)}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all duration-200 ${
                 builderMode === id
                   ? colorMap[modeColors[id]]
@@ -459,8 +473,8 @@ export const GraphBuilderToolbar = ({
           >
             {builderMode === 'addNode'
               ? '🟢 Click empty canvas to place a node'
-              : pendingEdgeSource.current !== null
-                ? `🟣 Now click the target node (source: ${pendingEdgeSource.current})`
+              : pendingEdgeSourceId !== null
+                ? `🟣 Now click the target node (source: ${pendingEdgeSourceId})`
                 : '🟣 Click the source node'}
           </div>
         </div>
