@@ -70,7 +70,10 @@ const applyParsedNumbers = (
   setInputError,
   customInputValue
 ) => {
-  const validationError = validateParsedNumbers(parsedNumbers, selectedAlgorithm)
+  const validationError = validateParsedNumbers(
+    parsedNumbers,
+    selectedAlgorithm
+  )
   if (validationError) {
     setInputError(validationError)
     return false
