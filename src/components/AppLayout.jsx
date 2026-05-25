@@ -13,7 +13,7 @@ const Background = () => (
 export default function AppLayout({ children, showBackground = true }) {
   return (
     <motion.div
-      className="theme-app min-h-screen flex flex-col relative overflow-hidden"
+      className="theme-app min-h-screen flex flex-col relative overflow-x-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
