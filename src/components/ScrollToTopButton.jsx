@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [isDark, setIsDark] = useState(false)
+
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains('dark')
+  )
 
   useEffect(() => {
-    // Check initial mode
-    setIsDark(document.documentElement.classList.contains('dark'))
-
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
+      setIsVisible(window.scrollY > 300)
     }
 
-    // Listen for theme change toggles on the HTML element
     const observer = new MutationObserver(() => {
       setIsDark(document.documentElement.classList.contains('dark'))
     })
-    
+
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
     })
 
     window.addEventListener('scroll', toggleVisibility)
+
     return () => {
       window.removeEventListener('scroll', toggleVisibility)
       observer.disconnect()
@@ -46,10 +42,10 @@ const ScrollToTopButton = () => {
         <button
           onClick={scrollToTop}
           type="button"
+          aria-label="Scroll to top"
           style={{
-            // Hardcoded hex values to guarantee the colors match your mockup image perfectly
-            backgroundColor: isDark ? '#0f285d' : '#6366f1', 
-            color: '#ffffff', // Ensures the arrow is always crisp white
+            backgroundColor: isDark ? '#0f285d' : '#6366f1',
+            color: '#ffffff',
             width: '48px',
             height: '48px',
             borderRadius: '50%',
@@ -60,9 +56,7 @@ const ScrollToTopButton = () => {
             border: 'none',
           }}
           className="fixed bottom-6 right-6 z-50 shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
-          aria-label="Scroll to top"
         >
-          {/* Thick, striking white arrow matching the mockup */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
