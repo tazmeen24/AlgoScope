@@ -47,7 +47,15 @@ export const MathSoloVisualizer = () => {
   useEffect(() => {
     document.title = 'Math Theory | AlgoScope'
   }, [])
-  const [algo, setAlgo] = useState('gcd')
+
+  const algoFromUrl = searchParams.get('algo')
+  const nextAlgo =
+    algoFromUrl && VALID_ALGO_KEYS.has(algoFromUrl)
+      ? algoFromUrl
+      : DEFAULT_ALGO_KEY
+
+  const [algo, setAlgo] = useState(nextAlgo)
+  const [prevAlgo, setPrevAlgo] = useState(nextAlgo)
   const [speed, setSpeed] = useState(1)
   const [language, setLanguage] = useState('javascript')
 
@@ -86,18 +94,11 @@ export const MathSoloVisualizer = () => {
     stepBackward,
   } = useStepPlayback({ speed })
 
-  useEffect(() => {
-    const algoFromUrl = searchParams.get('algo')
-    const nextAlgo =
-      algoFromUrl && VALID_ALGO_KEYS.has(algoFromUrl)
-        ? algoFromUrl
-        : DEFAULT_ALGO_KEY
-
-    if (nextAlgo !== algo) {
-      setAlgo(nextAlgo)
-      clear()
-    }
-  }, [algo, clear, searchParams])
+  if (nextAlgo !== prevAlgo) {
+    setAlgo(nextAlgo)
+    setPrevAlgo(nextAlgo)
+    clear()
+  }
 
   const handleAlgoChange = (nextAlgo) => {
     setAlgo(nextAlgo)
