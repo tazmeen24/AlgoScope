@@ -318,7 +318,7 @@ const ALGORITHMS = [
   {
     id: 'dynamic-prog',
     name: 'Dynamic Programming',
-    category: 'Dynamic Programmingg',
+    category: 'Dynamic Programming',
     route: '/dynamic-programming',
     keywords: ['lcs', 'knapsack', 'Coin Change', 'LIS'],
   },
