@@ -2,6 +2,7 @@ import React from 'react'
 import AlgoCard from './AlgoCard'
 import { Hero } from './hero/Hero'
 import { motion } from 'framer-motion'
+import { GuidedTour } from './GuidedTour'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -138,15 +139,19 @@ export const Home = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <AlgoCard
-              title="Guess the Algorithm"
-              description="Test your algorithm recognition skills! Can you identify the sorting algorithm purely from its visual animation?"
-              color="theme-card border-yellow-500/30 hover:border-yellow-400"
-              link="/challenge"
-            />
+            <div data-tour="challenge-card" className="w-full">
+              <AlgoCard
+                title="Guess the Algorithm"
+                description="Test your algorithm recognition skills! Can you identify the sorting algorithm purely from its visual animation?"
+                color="theme-card border-yellow-500/30 hover:border-yellow-400"
+                link="/challenge"
+              />
+            </div>
           </motion.div>
         </div>
       </div>
+
+      <GuidedTour />
     </div>
   )
 }
