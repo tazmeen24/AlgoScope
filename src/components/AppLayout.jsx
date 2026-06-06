@@ -13,7 +13,11 @@ const Background = () => (
   </div>
 )
 
-export default function AppLayout({ children, showBackground = true, notesKey }) {
+export default function AppLayout({
+  children,
+  showBackground = true,
+  notesKey,
+}) {
   return (
     <motion.div
       className="theme-app min-h-screen flex flex-col relative overflow-x-hidden"
@@ -30,7 +34,9 @@ export default function AppLayout({ children, showBackground = true, notesKey })
 
         <Breadcrumbs />
 
-        {notesKey ? <AlgorithmNotes storageKey={notesKey} /> : null}
+        {notesKey ? (
+          <AlgorithmNotes key={notesKey} storageKey={notesKey} />
+        ) : null}
 
         <div className="flex-1">{children}</div>
 

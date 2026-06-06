@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const loadNotes = (storageKey) => {
   if (!storageKey || typeof window === 'undefined') return ''
@@ -11,18 +11,10 @@ const loadNotes = (storageKey) => {
 }
 
 export default function AlgorithmNotes({ storageKey }) {
-  const [notes, setNotes] = useState('')
-  const isReady = useRef(false)
+  const [notes, setNotes] = useState(() => loadNotes(storageKey))
 
   useEffect(() => {
-    if (!storageKey) return
-    const savedNotes = loadNotes(storageKey)
-    setNotes(savedNotes)
-    isReady.current = true
-  }, [storageKey])
-
-  useEffect(() => {
-    if (!storageKey || !isReady.current || typeof window === 'undefined') return
+    if (!storageKey || typeof window === 'undefined') return
     try {
       window.localStorage.setItem(storageKey, notes)
     } catch (error) {
@@ -42,7 +34,8 @@ export default function AlgorithmNotes({ storageKey }) {
         <div>
           <h2 className="text-base font-semibold text-white">My Notes</h2>
           <p className="mt-1 max-w-2xl text-sm text-slate-400">
-            Jot down personal observations, reminders, and learning points for this page. Notes are saved locally and persist after refresh.
+            Jot down personal observations, reminders, and learning points for
+            this page. Notes are saved locally and persist after refresh.
           </p>
         </div>
         <button
@@ -62,7 +55,8 @@ export default function AlgorithmNotes({ storageKey }) {
       />
 
       <p className="mt-3 text-xs text-slate-500">
-        This note is stored in your browser only and is visible only on this device.
+        This note is stored in your browser only and is visible only on this
+        device.
       </p>
     </section>
   )
