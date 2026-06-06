@@ -63,6 +63,9 @@ const PracticePage = lazy(() => import('./components/PracticePage'))
 const AboutAlgoScope = lazy(() => import('./components/about/About'))
 const NotFound = lazy(() => import('./components/PageNotFound'))
 const ChallengePage = lazy(() => import('./components/challenge/ChallengePage'))
+const OperatingSystemsPage = lazy(
+  () => import('./components/operatingSystems/OperatingSystemsPage')
+)
 
 // Simple fallback for Suspense
 const PageLoader = () => (
@@ -244,6 +247,16 @@ const router = createBrowserRouter([
       <Suspense fallback={<PageLoader />}>
         <AppLayout>
           <StringAlgoVisualizerPage />
+        </AppLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/operating-systems',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <AppLayout>
+          <OperatingSystemsPage />
         </AppLayout>
       </Suspense>
     ),
