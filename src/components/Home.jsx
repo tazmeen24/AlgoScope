@@ -141,7 +141,6 @@ const OPERATING_SYSTEMS = [
     link: '/operating-systems',
     difficulty: 'Intermediate',
   },
-  
 ]
 
 export const Home = () => {

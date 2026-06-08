@@ -60,8 +60,8 @@ const DPOptimizationJourneyPage = lazy(
   () => import('./components/dynamicProgramming/DPOptimizationJourney') // Path to your main component
 )
 
-const SlidingWindowVisualizerPage = lazy(() =>
-  import('./components/slidingwindow/SlidingWindowVisualizer')
+const SlidingWindowVisualizerPage = lazy(
+  () => import('./components/slidingwindow/SlidingWindowVisualizer')
 )
 const PracticePage = lazy(() => import('./components/PracticePage'))
 const AboutAlgoScope = lazy(() => import('./components/about/About'))
