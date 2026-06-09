@@ -517,8 +517,10 @@ const GridVisualizer = ({ algorithm, runKey, speed }) => {
       row.map((node) => ({ ...node }))
     )
     let result
-    if (algorithm === 'dijkstra') result = runDijkstra(runGrid, startPos, endPos)
-    else if (algorithm === 'bellmanford') result = runBellmanFord(runGrid, startPos, endPos)
+    if (algorithm === 'dijkstra')
+      result = runDijkstra(runGrid, startPos, endPos)
+    else if (algorithm === 'bellmanford')
+      result = runBellmanFord(runGrid, startPos, endPos)
     else if (algorithm === 'floydwarshall')
       result = runFloydWarshallVisualization(runGrid, startPos, endPos)
 
