@@ -318,6 +318,16 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/two-pointer',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <AppLayout>
+          <TwoPointerVisualizerPage />
+        </AppLayout>
+      </Suspense>
+    ),
+  },
+  {
     path: '/challenge',
     element: (
       <AppLayout>
