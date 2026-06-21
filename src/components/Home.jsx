@@ -165,6 +165,7 @@ const OPERATING_SYSTEMS = [
     difficulty: 'Intermediate',
   },
 ]
+export const VISUALIZER_COUNT = ALGORITHMS.length + OPERATING_SYSTEMS.length + 1 // +1 for the "Guess the Algorithm" challenge card
 
 export const Home = () => {
   const [filter, setFilter] = useState('All')
