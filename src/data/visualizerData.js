@@ -1,4 +1,5 @@
-export const ALGORITHMS = [  {
+export const ALGORITHMS = [
+  {
     id: 'sorting',
     title: 'Sorting',
     description: 'Visualizing Bubble, Merge, Quick, Heap, and Shell Sort.',
@@ -103,6 +104,7 @@ export const ALGORITHMS = [  {
     difficulty: 'Advanced',
   },
   {
+    id: 'sliding-window',
     title: 'Sliding Window',
     description:
       'Visualize the sliding window algorithm use to optimally solve problems on substrings and subarrays.',
@@ -111,6 +113,7 @@ export const ALGORITHMS = [  {
     difficulty: 'Intermediate',
   },
   {
+    id: 'two-pointer',
     title: 'Two Pointer Approach',
     description:
       'Place two pointers at opposite ends and converge them inward — at each step, move the pointer that can not improve the answer, eliminating half the remaining pairs in O(n) instead of checking all pairs in O(n²).',
@@ -120,7 +123,8 @@ export const ALGORITHMS = [  {
   },
 ]
 
-export const OPERATING_SYSTEMS = [  {
+export const OPERATING_SYSTEMS = [
+  {
     id: 'cpu-scheduling',
     title: 'CPU Scheduling',
     description: 'Visualize FCFS, SJF, Round Robin, and Priority Scheduling.',
@@ -146,5 +150,6 @@ export const OPERATING_SYSTEMS = [  {
     difficulty: 'Intermediate',
   },
 ]
-export const VISUALIZER_COUNT = ALGORITHMS.length + OPERATING_SYSTEMS.length + 1 // +1 for the "Guess the Algorithm" challenge card
 
+export const VISUALIZER_COUNT =
+  ALGORITHMS.length + OPERATING_SYSTEMS.length + 1 // +1 for the "Guess the Algorithm" challenge card
