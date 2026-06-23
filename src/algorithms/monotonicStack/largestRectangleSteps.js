@@ -212,6 +212,22 @@ export function resolveLargestRectangleLine(language, lineKey) {
 }
 
 export function generateLargestRectangleSteps(inputArray) {
+  if (!inputArray || inputArray.length === 0) {
+    return [
+      createStep({
+        lineKey: 'function',
+        type: 'start',
+        array: [],
+        stack: [],
+        message: 'Empty input provided.',
+        variables: { n: 0, maxArea: 0 },
+        duration: 700,
+      }),
+    ]
+  }
+  if (inputArray.some((h) => typeof h !== 'number' || h < 0)) {
+    throw new Error('All heights must be non-negative numbers')
+  }
   const heights = [...inputArray]
   const steps = []
   const n = heights.length
