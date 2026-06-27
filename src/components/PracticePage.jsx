@@ -482,7 +482,11 @@ const PracticePage = () => {
     if (language !== 'javascript') {
       setLogs((prev) => [
         ...prev,
-        { type: 'error', content: 'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.' },
+        {
+          type: 'error',
+          content:
+            'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.',
+        },
       ])
       return
     }
@@ -517,7 +521,11 @@ const PracticePage = () => {
     if (language !== 'javascript') {
       setLogsA((prev) => [
         ...prev,
-        { type: 'error', content: 'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.' },
+        {
+          type: 'error',
+          content:
+            'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.',
+        },
       ])
       return
     }
@@ -552,7 +560,11 @@ const PracticePage = () => {
     if (language !== 'javascript') {
       setLogsB((prev) => [
         ...prev,
-        { type: 'error', content: 'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.' },
+        {
+          type: 'error',
+          content:
+            'Code execution is only supported for JavaScript. Python, Java, and C++ support coming soon.',
+        },
       ])
       return
     }
@@ -587,11 +599,19 @@ const PracticePage = () => {
     if (language !== 'javascript') {
       setLogsA((prev) => [
         ...prev,
-        { type: 'error', content: 'Compare is only supported for JavaScript. Python, Java, and C++ support coming soon.' },
+        {
+          type: 'error',
+          content:
+            'Compare is only supported for JavaScript. Python, Java, and C++ support coming soon.',
+        },
       ])
       setLogsB((prev) => [
         ...prev,
-        { type: 'error', content: 'Compare is only supported for JavaScript. Python, Java, and C++ support coming soon.' },
+        {
+          type: 'error',
+          content:
+            'Compare is only supported for JavaScript. Python, Java, and C++ support coming soon.',
+        },
       ])
       return
     }
