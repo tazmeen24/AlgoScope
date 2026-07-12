@@ -98,6 +98,13 @@ jobs:
               }
             } catch (error) {
               console.log('Error checking assigned issues:', error);
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `⚠️ Could not verify your current assignments due to an error. Please try again shortly.`
+              });
+              return;
             }
 
             // Assign the user
