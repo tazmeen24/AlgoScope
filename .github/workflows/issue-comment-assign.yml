@@ -65,6 +65,9 @@ jobs:
 
             // Check if issue is already assigned
             if ((issue.assignees || []).length > 0) {
+              if (issue.assignees.some(a => a.login.toLowerCase() === username.toLowerCase())) {
+                return; // requester is already the assignee, nothing to do
+              }
               const assigned = issue.assignees.map(assignee => `@${assignee.login}`).join(', ');
               await github.rest.issues.createComment({
                 owner,
